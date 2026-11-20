@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>BUSTANUL HADI - Portal Bendahara</title>
+<meta name="theme-color" content="#f7f7f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bendahara BH">
+<link id="appFavicon" rel="icon" type="image/svg+xml" href="">
+<link id="appAppleIcon" rel="apple-touch-icon" href="">
+<link id="appManifest" rel="manifest" href="">
+<style>
+:root {
+  --bg: #f0f0f0;
+  --surface: #f7f7f7;
+  --surface-elevated: #ffffff;
+  --border: #dcdcdc;
+  --text-primary: #141414;
+  --text-secondary: #525252;
+  --text-muted: #737373;
+  --accent: #141414;
+  --accent-text: #ffffff;
+  --shadow-dark: #d1d1d1;
+  --shadow-light: #ffffff;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --surface: #171717;
+    --surface-elevated: #1e1e1e;
+    --border: #2a2a2a;
+    --text-primary: #f5f5f5;
+    --text-secondary: #a3a3a3;
+    --text-muted: #737373;
+    --accent: #ffffff;
+    --accent-text: #121212;
+    --shadow-dark: #0a0a0a;
+    --shadow-light: #222222;
+  }
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.neu-card {
+  background: var(--surface);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 6px 6px 14px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
+  padding: 16px;
+  margin-bottom: 14px;
+}
+.neu-inset {
+  background: var(--bg);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -3px -3px 7px var(--shadow-light);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px var(--shadow-dark), -2px -2px 6px var(--shadow-light);
+  transition: transform 0.12s ease;
+}
+.btn:active {
+  transform: scale(0.97);
+  box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+.btn-sm {
+  padding: 7px 10px;
+  font-size: 12px;
+  border-radius: 10px;
+}
+.btn-block {
+  width: 100%;
+}
+input, select, textarea {
+  width: 100%;
+  background: var(--bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 13.5px;
+  font-family: inherit;
+  box-shadow: inset 3px 3px 7px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+  outline: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--text-secondary);
+}
+label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+.form-group {
+  margin-bottom: 12px;
+}
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.search-box.compact {
+  margin-bottom: 6px;
+}
+.search-box svg.search-ico {
+  position: absolute;
+  left: 12px;
+  width: 15px;
+  height: 15px;
+  color: var(--text-muted);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+.search-box input {
+  width: 100%;
+  height: 38px;
+  padding: 0 34px 0 35px;
+  font-size: 13px;
+  border-radius: 11px;
+  margin: 0;
+}
+.search-box.compact input {
+  height: 34px;
+  font-size: 12.5px;
+  border-radius: 9px;
+}
+.search-clear {
+  position: absolute;
+  right: 7px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+.search-box.has-text .search-clear {
+  display: inline-flex;
+}
+.list-meta-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px 7px var(--shadow-dark), -2px -2px 5px var(--shadow-light);
+}
+.brand h1 {
+  font-size: 15px;
+  font-weight: 700;
+}
+.brand span {
+  font-size: 11px;
+  color: var(--text-secondary);
+  display: block;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+.status-dot.online {
+  background: var(--accent);
+}
+.status-dot.pending {
+  background: #eab308;
+}
+main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.section {
+  display: none;
+}
+.section.active {
+  display: block;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.section-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  box-shadow: 4px 4px 10px var(--shadow-dark), -3px -3px 7px var(--shadow-light);
+}
+.stat-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--accent);
+}
+.stat-lbl {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.pill-group {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+}
+.pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.pill.active {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.bar-track {
+  width: 100%;
+  height: 8px;
+  background: var(--bg);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-top: 6px;
+}
+.bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+.vchart-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 156px;
+  padding: 16px 10px 8px;
+  overflow-x: auto;
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  box-shadow: inset 3px 3px 7px var(--shadow-dark), inset -2px -2px 5px var(--shadow-light);
+}
+.vchart-col {
+  flex: 1;
+  min-width: 48px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.vchart-val {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+.vchart-bar-bg {
+  width: 24px;
+  height: 92px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+.vchart-bar-fill {
+  width: 100%;
+  background: var(--accent);
+  border-radius: 5px 5px 0 0;
+  transition: height 0.35s ease;
+}
+.vchart-lbl {
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-align: center;
+  white-space: nowrap;
+  max-width: 58px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dist-row {
+  margin-bottom: 10px;
+}
+.dist-row:last-child {
+  margin-bottom: 0;
+}
+.dist-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.clickable-row {
+  cursor: pointer;
+  padding: 11px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-elevated);
+  margin-bottom: 8px;
+  transition: transform 0.12s ease;
+}
+.clickable-row:last-child {
+  margin-bottom: 0;
+}
+.clickable-row:active {
+  transform: scale(0.985);
+}
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 6px 4px calc(10px + env(safe-area-inset-bottom));
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+}
+.nav-item.active {
+  color: var(--accent);
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(0, 0, 0, 0.72);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal-backdrop.open {
+  display: flex;
+}
+.modal-box {
+  width: 100%;
+  max-width: 480px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+}
+.lock-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lock-screen.hidden {
+  display: none;
+}
+.toast {
+  position: fixed;
+  top: 66px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 80;
+  background: var(--accent);
+  color: var(--accent-text);
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  display: none;
+}
+.icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 14px 0;
+}
+.dana-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.dana-chip {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.12s ease;
+}
+.dana-chip.active {
+  border-color: var(--accent);
+  box-shadow: inset 2px 2px 5px var(--shadow-dark);
+}
+.quick-nominal {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.nom-btn {
+  padding: 5px 9px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.nom-btn:active {
+  transform: scale(0.96);
+}
+.report-box {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11.5px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  max-height: 360px;
+  overflow-y: auto;
+}
+</style>
+</head>
+<body>
+
+<div id="lockScreen" class="lock-screen">
+  <div class="neu-card" style="width:100%;max-width:360px;text-align:center;padding:24px;">
+    <div class="brand-icon" style="width:52px;height:52px;margin:0 auto 14px;">
+      <svg class="icon" style="width:26px;height:26px;" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+    </div>
+    <h2 style="font-size:18px;margin-bottom:4px;">BENDAHARA BUSTANUL HADI</h2>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:18px;">Offline-First • Otomatis Sinkron Saat Online</p>
+    <div class="form-group">
+      <input type="password" id="pinInput" inputmode="numeric" maxlength="8" placeholder="PIN Bendahara (Default: 2026)" style="text-align:center;font-size:18px;letter-spacing:6px;">
+    </div>
+    <button type="button" class="btn btn-primary btn-block" onclick="verifyPin()">Masuk Portal Bendahara</button>
+    <p id="pinError" style="font-size:12px;color:var(--text-secondary);margin-top:10px;display:none;">PIN Bendahara tidak sesuai. Silakan coba lagi.</p>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">
+      <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+    </div>
+    <div>
+      <h1>BUSTANUL HADI</h1>
+      <span>Portal Bendahara • Offline & Auto-Sync</span>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <button type="button" class="status-pill" onclick="openModal('modalSettings')" title="Status Sinkronisasi & Backup">
+      <span id="syncDot" class="status-dot"></span>
+      <span id="syncLabel">Lokal</span>
+    </button>
+    <button type="button" class="btn btn-sm" onclick="lockBendaharaPortal()" title="Kunci Portal">
+      <svg class="icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- TAB 1: KAS & TRANSAKSI -->
+  <section id="sec-kas" class="section active">
+    <div class="section-header">
+      <h2 class="section-title">Buku Kas & Infaq</h2>
+      <div style="display:flex;gap:6px;">
+        <button type="button" class="btn btn-sm" onclick="openModal('modalJenisDana')">
+          <svg class="icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Pos Dana
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="openKasForm()">
+          <svg class="icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Catat Kas
+        </button>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:14px;" id="kasSummaryStats"></div>
+
+    <div class="neu-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <h3 style="font-size:14px;">Saldo Per Variasi / Pos Dana</h3>
+        <span class="badge" id="kasPosCountBadge">0 Pos</span>
+      </div>
+      <div class="dana-chip-grid" id="kasPosGrid"></div>
+
+      <div class="grid-2" style="margin-bottom:10px;">
+        <div>
+          <label>Filter Pos Dana</label>
+          <select id="kasFilterKategori" onchange="renderKas()"></select>
+        </div>
+        <div>
+          <label>Filter Kelas Santri</label>
+          <select id="kasFilterKelas" onchange="renderKas()"></select>
+        </div>
+      </div>
+
+      <div class="pill-group" id="kasTypePills">
+        <button type="button" class="pill active" onclick="setKasTypeFilter('ALL', this)">Semua</button>
+        <button type="button" class="pill" onclick="setKasTypeFilter('MASUK', this)">Dana Masuk</button>
+        <button type="button" class="pill" onclick="setKasTypeFilter('KELUAR', this)">Pengeluaran</button>
+        <button type="button" class="pill" onclick="setKasTypeFilter('BELUM_SETOR', this)">Belum Setor</button>
+      </div>
+
+      <div class="search-box" id="wrapSearchKas" style="margin-bottom:0;">
+        <svg class="icon search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchKas" placeholder="Cari nama santri, pos dana, tanggal, keterangan..." oninput="onSearchInput('searchKas','wrapSearchKas',renderKas)">
+        <button type="button" class="search-clear" onclick="clearSearch('searchKas','wrapSearchKas',renderKas)" aria-label="Hapus pencarian">
+          <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="list-meta-bar" id="kasListMeta"></div>
+    <div id="kasListContainer"></div>
+  </section>
+
+  <!-- TAB 2: REKAP SETORAN PER SANTRI -->
+  <section id="sec-santri" class="section">
+    <div class="section-header">
+      <h2 class="section-title">Setoran Per Santri</h2>
+      <button type="button" class="btn btn-primary btn-sm" onclick="openKasForm()">
+        <svg class="icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Input Setoran
+      </button>
+    </div>
+
+    <div class="neu-card">
+      <div class="grid-2" style="margin-bottom:10px;">
+        <div>
+          <label>Pos Dana Target</label>
+          <select id="santriPosFilter" onchange="renderSantriKas()"></select>
+        </div>
+        <div>
+          <label>Filter Kelas</label>
+          <select id="santriKelasFilter" onchange="renderSantriKas()"></select>
+        </div>
+      </div>
+
+      <div class="pill-group" id="santriStatusSetorPills">
+        <button type="button" class="pill active" onclick="setSantriSetorFilter('ALL', this)">Semua Santri</button>
+        <button type="button" class="pill" onclick="setSantriSetorFilter('SUDAH', this)">Sudah Setor</button>
+        <button type="button" class="pill" onclick="setSantriSetorFilter('BELUM', this)">Belum Setor</button>
+      </div>
+
+      <div class="search-box" id="wrapSearchSantri" style="margin-bottom:0;">
+        <svg class="icon search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchSantriKas" placeholder="Cari nama santri atau kelas..." oninput="onSearchInput('searchSantriKas','wrapSearchSantri',renderSantriKas)">
+        <button type="button" class="search-clear" onclick="clearSearch('searchSantriKas','wrapSearchSantri',renderSantriKas)" aria-label="Hapus pencarian">
+          <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:12px;" id="santriKasStats"></div>
+    <div class="list-meta-bar" id="santriListMeta"></div>
+    <div id="santriKasList"></div>
+  </section>
+
+  <!-- TAB 3: ANALISA KEUANGAN -->
+  <section id="sec-analisa" class="section">
+    <div class="section-header">
+      <h2 class="section-title">Analisa & Grafik Kas</h2>
+      <span class="badge" id="analisaKasBadge">0 Transaksi</span>
+    </div>
+
+    <div class="neu-card">
+      <label>Rentang Waktu Analisa</label>
+      <div class="pill-group" id="analisaPeriodPills">
+        <button type="button" class="pill active" onclick="setAnalisaMode('semua', this)">Semua</button>
+        <button type="button" class="pill" onclick="setAnalisaMode('harian', this)">Harian</button>
+        <button type="button" class="pill" onclick="setAnalisaMode('mingguan', this)">Mingguan</button>
+        <button type="button" class="pill" onclick="setAnalisaMode('bulanan', this)">Bulanan</button>
+      </div>
+      <div id="analisaDateWrap" style="display:none;margin-bottom:10px;">
+        <label id="analisaDateLabel">Pilih Tanggal</label>
+        <input type="date" id="analisaRefDate" onchange="renderAnalisaKas()">
+      </div>
+      <div id="analisaMonthWrap" style="display:none;margin-bottom:10px;">
+        <label>Pilih Bulan</label>
+        <input type="month" id="analisaRefMonth" onchange="renderAnalisaKas()">
+      </div>
+      <div class="form-group" style="margin-bottom:2px;">
+        <label>Filter Kelas Santri</label>
+        <select id="analisaKelasFilter" onchange="renderAnalisaKas()"></select>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:14px;" id="analisaKasSummary"></div>
+
+    <div class="neu-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <h3 style="font-size:14px;" id="kasTrendChartTitle">Grafik Pemasukan Kas</h3>
+        <span class="badge">Dana Masuk</span>
+      </div>
+      <div id="kasTrendChartBox"></div>
+    </div>
+
+    <div class="neu-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <h3 style="font-size:14px;">Distribusi Per Pos Dana</h3>
+        <span class="badge" id="kasPosDistTotalBadge">Rp 0</span>
+      </div>
+      <div id="kasPosDistChart"></div>
+    </div>
+
+    <div class="neu-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <h3 style="font-size:14px;">Peringkat Kontribusi Santri</h3>
+        <span class="badge" id="kasContributorCountBadge">0 Santri</span>
+      </div>
+      <div class="search-box compact" id="wrapSearchAnalisaContrib" style="margin-bottom:10px;">
+        <svg class="icon search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchAnalisaContrib" placeholder="Cari nama santri di peringkat..." oninput="onSearchInput('searchAnalisaContrib','wrapSearchAnalisaContrib',renderAnalisaKas)">
+        <button type="button" class="search-clear" onclick="clearSearch('searchAnalisaContrib','wrapSearchAnalisaContrib',renderAnalisaKas)" aria-label="Hapus pencarian">
+          <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div id="kasTopContributorsList"></div>
+    </div>
+  </section>
+
+  <!-- TAB 4: LAPORAN & BACKUP -->
+  <section id="sec-laporan" class="section">
+    <div class="section-header">
+      <h2 class="section-title">Laporan & Pembukuan</h2>
+      <button type="button" class="btn btn-primary btn-sm" onclick="copyLaporanTeks()">
+        <svg class="icon" style="width:14px;height:14px;" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Salin Laporan
+      </button>
+    </div>
+
+    <div class="neu-card">
+      <div class="grid-2" style="margin-bottom:10px;">
+        <div>
+          <label>Pos Dana Laporan</label>
+          <select id="lapPosFilter" onchange="renderLaporan()"></select>
+        </div>
+        <div>
+          <label>Bulan (Kosongkan = Semua)</label>
+          <input type="month" id="lapMonthFilter" onchange="renderLaporan()">
+        </div>
+      </div>
+      <div class="search-box compact" id="wrapSearchLaporan" style="margin-bottom:10px;">
+        <svg class="icon search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchLaporan" placeholder="Saring baris laporan berdasarkan nama atau keterangan..." oninput="onSearchInput('searchLaporan','wrapSearchLaporan',renderLaporan)">
+        <button type="button" class="search-clear" onclick="clearSearch('searchLaporan','wrapSearchLaporan',renderLaporan)" aria-label="Hapus pencarian">
+          <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="report-box" id="laporanPreviewBox"></div>
+      <div class="grid-2" style="margin-top:12px;">
+        <button type="button" class="btn btn-primary" onclick="copyLaporanTeks()">Salin untuk WhatsApp</button>
+        <button type="button" class="btn" onclick="exportJsonBackup()">Unduh Backup JSON</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <button type="button" class="nav-item active" onclick="switchTab('kas', this)">
+    <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+    <span>Kas</span>
+  </button>
+  <button type="button" class="nav-item" onclick="switchTab('santri', this)">
+    <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span>Santri</span>
+  </button>
+  <button type="button" class="nav-item" onclick="switchTab('analisa', this)">
+    <svg class="icon" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <span>Analisa</span>
+  </button>
+  <button type="button" class="nav-item" onclick="switchTab('laporan', this)">
+    <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    <span>Laporan</span>
+  </button>
+</nav>
+
+<!-- MODAL CATAT / EDIT KAS -->
+<div id="modalKasForm" class="modal-backdrop">
+  <div class="modal-box">
+    <h3 style="font-size:16px;margin-bottom:12px;" id="kasModalTitle">Catat Kas / Infaq Santri</h3>
+    <input type="hidden" id="editKasId">
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Jenis Transaksi</label>
+        <select id="kasJenisTransaksi" onchange="toggleKasDonaturMode()">
+          <option value="MASUK">Dana Masuk (+)</option>
+          <option value="KELUAR">Pengeluaran Kas (-)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tanggal</label>
+        <input type="date" id="kasTanggal">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Pos / Variasi Dana</label>
+      <select id="kasPosDana"></select>
+    </div>
+
+    <div class="form-group" id="kasSumberModeWrap">
+      <label>Sumber Dana</label>
+      <select id="kasSumberMode" onchange="toggleKasSumberInput()">
+        <option value="SANTRI">Dari Santri Terdaftar</option>
+        <option value="UMUM">Donatur / Wali Santri / Umum</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="kasSantriSelectWrap">
+      <label>Pilih Santri</label>
+      <div class="search-box compact" id="wrapSearchSantriSelect">
+        <svg class="icon search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchSantriSelect" placeholder="Ketik nama santri untuk menyaring..." oninput="onSearchInput('searchSantriSelect','wrapSearchSantriSelect',filterKasSantriDropdown)">
+        <button type="button" class="search-clear" onclick="clearSearch('searchSantriSelect','wrapSearchSantriSelect',filterKasSantriDropdown)" aria-label="Hapus pencarian">
+          <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <select id="kasSantriId"></select>
+    </div>
+
+    <div class="form-group" id="kasNamaManualWrap" style="display:none;">
+      <label id="kasNamaManualLabel">Nama Donatur / Sumber</label>
+      <input type="text" id="kasNamaManual" placeholder="Contoh: Hamba Allah / Wali Santri">
+    </div>
+
+    <div class="form-group">
+      <label>Nominal (Rp)</label>
+      <input type="number" id="kasNominal" inputmode="numeric" placeholder="Contoh: 5000">
+      <div class="quick-nominal">
+        <button type="button" class="nom-btn" onclick="setKasNominal(2000)">2.000</button>
+        <button type="button" class="nom-btn" onclick="setKasNominal(5000)">5.000</button>
+        <button type="button" class="nom-btn" onclick="setKasNominal(10000)">10.000</button>
+        <button type="button" class="nom-btn" onclick="setKasNominal(20000)">20.000</button>
+        <button type="button" class="nom-btn" onclick="setKasNominal(50000)">50.000</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Keterangan / Catatan</label>
+      <input type="text" id="kasKeterangan" placeholder="Contoh: Infaq Malam Jumat / Beli Spidol & Kapur">
+    </div>
+
+    <div style="display:flex;gap:8px;">
+      <button type="button" class="btn btn-primary" style="flex:1;" onclick="saveKasTransaksi()">Simpan Catatan</button>
+      <button type="button" class="btn" onclick="closeModal('modalKasForm')">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL KELOLA JENIS / POS DANA -->
+<div id="modalJenisDana" class="modal-backdrop">
+  <div class="modal-box">
+    <h3 style="font-size:16px;margin-bottom:4px;">Variasi / Pos Dana Terkumpul</h3>
+    <p style="font-size:12px;color:var(--text-secondary);margin-bottom:12px;">Tersimpan otomatis di perangkat dan disinkronkan ke Portal Guru saat online. Jika pos dihapus, transaksi dipindah ke <strong>Kas Umum Pengajian</strong>.</p>
+    <div class="form-group">
+      <label>Nama Pos / Variasi Dana Baru</label>
+      <div style="display:flex;gap:8px;">
+        <input type="text" id="newDanaKategoriInput" placeholder="Contoh: Infaq Pembangunan Balai">
+        <button type="button" class="btn btn-primary" onclick="addDanaKategori()">Tambah</button>
+      </div>
+    </div>
+    <div class="search-box compact" id="wrapSearchPosModal">
+      <svg class="icon search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchPosModal" placeholder="Cari pos dana..." oninput="onSearchInput('searchPosModal','wrapSearchPosModal',renderDanaKategoriManage)">
+      <button type="button" class="search-clear" onclick="clearSearch('searchPosModal','wrapSearchPosModal',renderDanaKategoriManage)" aria-label="Hapus pencarian">
+        <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="danaKategoriList" style="max-height:240px;overflow-y:auto;margin-bottom:14px;"></div>
+    <button type="button" class="btn btn-block" onclick="closeModal('modalJenisDana')">Selesai & Tutup</button>
+  </div>
+</div>
+
+<!-- MODAL RINCIAN KAS PER SANTRI -->
+<div id="modalSantriKasDetail" class="modal-backdrop">
+  <div class="modal-box">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px;">
+      <div>
+        <span class="badge" id="detKasKelas" style="margin-bottom:4px;">Kelas</span>
+        <h3 id="detKasNama" style="font-size:18px;font-weight:800;">Nama Santri</h3>
+        <div id="detKasTotalLabel" style="font-size:13px;font-weight:700;margin-top:2px;">Total Setoran: Rp 0</div>
+      </div>
+      <button type="button" class="btn btn-sm" onclick="closeModal('modalSantriKasDetail')">Tutup</button>
+    </div>
+
+    <div class="search-box compact" id="wrapSearchDetKas" style="margin-bottom:8px;">
+      <svg class="icon search-ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchDetKas" placeholder="Cari riwayat setoran santri..." oninput="onSearchInput('searchDetKas','wrapSearchDetKas',renderCurrentSantriKasHistory)">
+      <button type="button" class="search-clear" onclick="clearSearch('searchDetKas','wrapSearchDetKas',renderCurrentSantriKasHistory)" aria-label="Hapus pencarian">
+        <svg class="icon" style="width:12px;height:12px;" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div id="detKasHistoryList" style="max-height:270px;overflow-y:auto;margin-bottom:14px;"></div>
+
+    <div style="display:flex;gap:8px;">
+      <button type="button" class="btn btn-primary" style="flex:1;" id="btnDetCatatSetoran">+ Catat Setoran Baru</button>
+      <button type="button" class="btn" onclick="closeModal('modalSantriKasDetail')">Tutup</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PENGATURAN BENDAHARA -->
+<div id="modalSettings" class="modal-backdrop">
+  <div class="modal-box">
+    <h3 style="font-size:16px;margin-bottom:10px;">Sinkronisasi Offline-First, Backup & PIN</h3>
+    <div class="neu-inset" style="padding:12px;margin-bottom:12px;font-size:12px;">
+      <div><strong>Pesantren:</strong> BUSTANUL HADI</div>
+      <div><strong>Penyimpanan Utama:</strong> Lokal Perangkat (Offline-First)</div>
+      <div id="modalSyncDetail" style="margin-top:4px;color:var(--text-secondary);">Menunggu koneksi internet untuk sinkronisasi otomatis.</div>
+      <div id="modalLastSyncTime" style="margin-top:3px;font-size:11px;color:var(--text-muted);">Sinkronisasi terakhir: Belum ada</div>
+    </div>
+
+    <button type="button" class="btn btn-primary btn-block" style="margin-bottom:14px;" onclick="syncNowManual()">
+      <svg class="icon" style="width:15px;height:15px;" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      Sinkronkan Sekarang ke Cloud
+    </button>
+
+    <h4 style="font-size:13px;margin-bottom:8px;">Backup & Restore Data (JSON)</h4>
+    <div class="grid-2" style="margin-bottom:10px;">
+      <button type="button" class="btn" onclick="exportJsonBackup()">Unduh Backup JSON</button>
+      <button type="button" class="btn" onclick="copyJsonBackup()">Salin JSON</button>
+    </div>
+
+    <div class="form-group">
+      <label>Pulihkan dari File (.json)</label>
+      <input type="file" id="jsonFileInput" accept=".json,application/json" onchange="importJsonFile(event)">
+    </div>
+
+    <div class="divider"></div>
+
+    <h4 style="font-size:13px;margin-bottom:8px;">Ubah PIN Akses Bendahara</h4>
+    <div class="grid-2">
+      <div class="form-group">
+        <label>PIN Lama</label>
+        <input type="password" id="oldPinInput" inputmode="numeric" maxlength="8" placeholder="2026">
+      </div>
+      <div class="form-group">
+        <label>PIN Baru</label>
+        <input type="password" id="newPinInput" inputmode="numeric" maxlength="8" placeholder="Min 4 digit">
+      </div>
+    </div>
+    <button type="button" class="btn btn-block" style="margin-bottom:10px;" onclick="updateBendaharaPin()">Simpan PIN Bendahara</button>
+    <button type="button" class="btn btn-primary btn-block" onclick="closeModal('modalSettings')">Tutup Pengaturan</button>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyA_NoIO1F_E5fDmVwex6ad3bT5h2OGmZPE",
+  authDomain: "game-2d1e0.firebaseapp.com",
+  projectId: "game-2d1e0",
+  storageBucket: "game-2d1e0.firebasestorage.app",
+  messagingSenderId: "501200973294",
+  appId: "1:501200973294:web:a423438c589d9ffb57b2ff",
+  measurementId: "G-KYHHP0XW7Z"
+};
+
+const STORAGE_KEY = "balai_pengajian_state";
+const PENDING_SYNC_KEY = "bendahara_pending_sync";
+const LAST_SYNC_KEY = "bendahara_last_sync";
+
+const defaultDanaKategori = [
+  "Kas Umum Pengajian",
+  "Infaq Malam Jumat",
+  "Dana Sosial / Ta'ziah",
+  "Iuran Kitab & Fasilitas"
+];
+
+const defaultState = {
+  pin: "1234",
+  pinBendahara: "2026",
+  kelasList: ["Umum", "Matan Taqrib", "Matan Al Jurumiah", "Al Quran"],
+  danaKategori: [...defaultDanaKategori],
+  kasTransaksi: [],
+  santri: [],
+  absensi: {},
+  materi: [],
+  kuisConfig: { judul: "Musabaqah Fahmil Kutub BUSTANUL HADI", durasi: 180, penaltiSalah: 5 },
+  kuisSoal: [],
+  skor: [],
+  pustaka: []
+};
+
+function sanitizeState(stateObj) {
+  let list = Array.isArray(stateObj.kelasList) ? [...stateObj.kelasList] : [];
+  if (!list.includes("Umum")) list.unshift("Umum");
+  stateObj.kelasList = list;
+
+  let danaList = Array.isArray(stateObj.danaKategori) && stateObj.danaKategori.length > 0
+    ? [...stateObj.danaKategori]
+    : [...defaultDanaKategori];
+  if (!danaList.includes("Kas Umum Pengajian")) danaList.unshift("Kas Umum Pengajian");
+  stateObj.danaKategori = danaList;
+
+  if (!stateObj.pinBendahara) stateObj.pinBendahara = "2026";
+  stateObj.kasTransaksi = Array.isArray(stateObj.kasTransaksi) ? stateObj.kasTransaksi : [];
+  stateObj.santri = Array.isArray(stateObj.santri) ? stateObj.santri : [];
+
+  stateObj.kasTransaksi.forEach(t => {
+    if (!t.kategori || !danaList.includes(t.kategori)) t.kategori = "Kas Umum Pengajian";
+    t.nominal = Number(t.nominal) || 0;
+    t.jenis = t.jenis === "KELUAR" ? "KELUAR" : "MASUK";
+  });
+  return stateObj;
+}
+
+let appState = sanitizeState(JSON.parse(localStorage.getItem(STORAGE_KEY)) || JSON.parse(JSON.stringify(defaultState)));
+let hasPendingSync = localStorage.getItem(PENDING_SYNC_KEY) === "1";
+let isSyncingNow = false;
+let firebaseLoadingPromise = null;
+let db = null;
+let docRef = null;
+let kasTypeFilter = "ALL";
+let santriSetorFilter = "ALL";
+let analisaMode = "semua";
+let activeDetailSantriId = null;
+
+function formatRupiah(num) {
+  const val = Number(num) || 0;
+  return "Rp " + val.toLocaleString("id-ID");
+}
+
+function formatRupiahShort(num) {
+  const val = Number(num) || 0;
+  if (Math.abs(val) >= 1000000) return "Rp " + (val / 1000000).toFixed(1).replace(".0", "") + "jt";
+  if (Math.abs(val) >= 1000) return "Rp " + Math.round(val / 1000) + "rb";
+  return "Rp " + val;
+}
+
+function onSearchInput(inputId, wrapId, renderFn) {
+  const inp = document.getElementById(inputId);
+  const wrap = document.getElementById(wrapId);
+  if (wrap && inp) {
+    if (inp.value.length > 0) wrap.classList.add("has-text");
+    else wrap.classList.remove("has-text");
+  }
+  renderFn();
+}
+
+function clearSearch(inputId, wrapId, renderFn) {
+  const inp = document.getElementById(inputId);
+  const wrap = document.getElementById(wrapId);
+  if (inp) inp.value = "";
+  if (wrap) wrap.classList.remove("has-text");
+  renderFn();
+}
+
+function getQuery(inputId) {
+  const el = document.getElementById(inputId);
+  return el ? el.value.trim().toLowerCase() : "";
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.style.display = "block";
+  setTimeout(() => { t.style.display = "none"; }, 2600);
+}
+
+function refreshLastSyncLabel() {
+  const el = document.getElementById("modalLastSyncTime");
+  const last = localStorage.getItem(LAST_SYNC_KEY);
+  if (el) {
+    el.textContent = last ? `Sinkronisasi terakhir: ${last}` : "Sinkronisasi terakhir: Belum ada";
+  }
+}
+
+function updateSyncUI(mode, detail) {
+  const dot = document.getElementById("syncDot");
+  const lbl = document.getElementById("syncLabel");
+  const mod = document.getElementById("modalSyncDetail");
+  dot.classList.remove("online", "pending");
+
+  if (mode === "online") {
+    dot.classList.add("online");
+    lbl.textContent = "Online";
+    mod.textContent = detail || "Data lokal & cloud sudah sinkron.";
+  } else if (mode === "pending") {
+    dot.classList.add("pending");
+    lbl.textContent = navigator.onLine ? "Menyinkron..." : "Antre Sync";
+    mod.textContent = detail || "Perubahan tersimpan di lokal, menunggu internet untuk update otomatis.";
+  } else {
+    lbl.textContent = "Offline";
+    mod.textContent = detail || "Mode Offline: Semua data aman tersimpan di penyimpanan lokal.";
+  }
+  refreshLastSyncLabel();
+}
+
+function setPendingFlag(flag) {
+  hasPendingSync = flag;
+  if (flag) localStorage.setItem(PENDING_SYNC_KEY, "1");
+  else localStorage.removeItem(PENDING_SYNC_KEY);
+}
+
+function loadScriptOnce(src) {
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector(`script[src="${src}"]`);
+    if (existing && window.firebase) return resolve();
+    const s = document.createElement("script");
+    s.src = src;
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+function attachFirestoreListener() {
+  if (!docRef) return;
+  docRef.onSnapshot((snapshot) => {
+    if (hasPendingSync) {
+      flushPendingSync(true);
+      return;
+    }
+    if (snapshot.exists) {
+      appState = sanitizeState({ ...defaultState, ...appState, ...snapshot.data() });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      renderAll();
+      localStorage.setItem(LAST_SYNC_KEY, new Date().toLocaleString("id-ID"));
+      updateSyncUI("online", "Sinkronisasi real-time aktif dengan Portal Guru.");
+    } else if (appState.kasTransaksi.length > 0) {
+      flushPendingSync(true);
+    }
+  }, (err) => {
+    updateSyncUI(hasPendingSync ? "pending" : "offline", "Mode Lokal: " + err.message);
+  });
+}
+
+async function ensureFirebaseReady() {
+  if (docRef) return true;
+  if (!navigator.onLine) return false;
+  if (firebaseLoadingPromise) return firebaseLoadingPromise;
+
+  firebaseLoadingPromise = (async () => {
+    try {
+      if (typeof firebase === "undefined") {
+        await loadScriptOnce("https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js");
+        await loadScriptOnce("https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js");
+      }
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      db = firebase.firestore();
+      docRef = db.collection("balai_pengajian").doc("data_utama");
+      attachFirestoreListener();
+      return true;
+    } catch (e) {
+      return false;
+    } finally {
+      firebaseLoadingPromise = null;
+    }
+  })();
+
+  return firebaseLoadingPromise;
+}
+
+async function flushPendingSync(silent = true) {
+  if (isSyncingNow) return;
+  if (!navigator.onLine) {
+    updateSyncUI(hasPendingSync ? "pending" : "offline", hasPendingSync
+      ? "Offline: Perubahan tersimpan lokal & otomatis dikirim saat internet aktif."
+      : "Offline: Menggunakan database lokal perangkat.");
+    return;
+  }
+
+  const ready = await ensureFirebaseReady();
+  if (!ready || !docRef) {
+    updateSyncUI(hasPendingSync ? "pending" : "offline", "Menunggu sambungan ke server cloud...");
+    return;
+  }
+
+  isSyncingNow = true;
+  updateSyncUI("pending", "Mengunggah perubahan lokal ke cloud...");
+
+  try {
+    sanitizeState(appState);
+    await docRef.set(appState, { merge: true });
+    setPendingFlag(false);
+    localStorage.setItem(LAST_SYNC_KEY, new Date().toLocaleString("id-ID"));
+    updateSyncUI("online", "Tersinkron otomatis dengan Portal Guru.");
+    if (!silent) showToast("Sinkronisasi ke cloud berhasil");
+  } catch (e) {
+    setPendingFlag(true);
+    updateSyncUI("pending", "Koneksi tidak stabil, perubahan tetap aman di lokal & akan dicoba ulang otomatis.");
+    if (!silent) showToast("Belum terhubung ke server, data aman di lokal");
+  } finally {
+    isSyncingNow = false;
+  }
+}
+
+function syncNowManual() {
+  if (!navigator.onLine) {
+    return showToast("Tidak ada internet. Data sudah aman di lokal & akan sync otomatis saat online.");
+  }
+  flushPendingSync(false);
+}
+
+async function initFirebase(autoFlush = true) {
+  const ready = await ensureFirebaseReady();
+  if (ready && autoFlush && hasPendingSync) {
+    await flushPendingSync(true);
+  }
+}
+
+async function persistState() {
+  sanitizeState(appState);
+  appState.kasUpdatedAt = Date.now();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+  setPendingFlag(true);
+  renderAll();
+
+  if (navigator.onLine) {
+    await flushPendingSync(true);
+  } else {
+    updateSyncUI("pending", "Tersimpan di lokal. Akan otomatis update ke server saat internet terhubung.");
+  }
+}
+
+window.addEventListener("online", () => {
+  showToast("Internet terhubung • Menyinkronkan data lokal...");
+  flushPendingSync(true);
+});
+
+window.addEventListener("offline", () => {
+  updateSyncUI(hasPendingSync ? "pending" : "offline", "Koneksi terputus. Perubahan tetap tersimpan di lokal perangkat.");
+  showToast("Mode Offline aktif • Data tetap tersimpan di lokal");
+});
+
+setInterval(() => {
+  if (navigator.onLine && (hasPendingSync || !docRef)) {
+    flushPendingSync(true);
+  }
+}, 8000);
+
+function verifyPin() {
+  const val = document.getElementById("pinInput").value.trim();
+  const validPin = String(appState.pinBendahara || "2026");
+  if (val === validPin) {
+    document.getElementById("lockScreen").classList.add("hidden");
+    document.getElementById("pinInput").value = "";
+    document.getElementById("pinError").style.display = "none";
+    localStorage.setItem("bendahara_permanent_unlocked", "1");
+    showToast("Sesi Bendahara tersimpan di perangkat");
+  } else {
+    document.getElementById("pinError").style.display = "block";
+  }
+}
+
+function lockBendaharaPortal() {
+  localStorage.removeItem("bendahara_permanent_unlocked");
+  document.getElementById("lockScreen").classList.remove("hidden");
+}
+
+async function updateBendaharaPin() {
+  const op = document.getElementById("oldPinInput").value.trim();
+  const np = document.getElementById("newPinInput").value.trim();
+  if (op !== String(appState.pinBendahara || "2026")) return showToast("PIN lama tidak sesuai");
+  if (np.length < 4) return showToast("PIN baru minimal 4 digit");
+  appState.pinBendahara = np;
+  document.getElementById("oldPinInput").value = "";
+  document.getElementById("newPinInput").value = "";
+  await persistState();
+  showToast("PIN Bendahara diperbarui");
+}
+
+function switchTab(tab, el) {
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+  document.getElementById("sec-" + tab).classList.add("active");
+  el.classList.add("active");
+  if (tab === "laporan") renderLaporan();
+}
+
+function openModal(id) {
+  populateDropdowns();
+  if (id === "modalJenisDana") {
+    clearSearch("searchPosModal", "wrapSearchPosModal", renderDanaKategoriManage);
+  }
+  if (id === "modalSettings") {
+    refreshLastSyncLabel();
+  }
+  document.getElementById(id).classList.add("open");
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove("open");
+}
+
+function filterKasSantriDropdown(selectedId = null) {
+  const santriEl = document.getElementById("kasSantriId");
+  if (!santriEl) return;
+  const prevVal = selectedId || santriEl.value;
+  const q = getQuery("searchSantriSelect");
+
+  const sortedSantri = [...appState.santri]
+    .filter(s => !q || (s.nama || "").toLowerCase().includes(q) || (s.kelas || "").toLowerCase().includes(q))
+    .sort((a, b) => (a.nama || "").localeCompare(b.nama || ""));
+
+  if (sortedSantri.length === 0) {
+    santriEl.innerHTML = `<option value="">-- Santri tidak ditemukan --</option>`;
+  } else {
+    santriEl.innerHTML = sortedSantri.map(s => `<option value="${s.id}">${s.nama} (${s.kelas})</option>`).join("");
+    if (prevVal && sortedSantri.some(s => s.id === prevVal)) {
+      santriEl.value = prevVal;
+    }
+  }
+}
+
+function populateDropdowns() {
+  const dList = appState.danaKategori || [...defaultDanaKategori];
+  const kList = appState.kelasList || ["Umum"];
+
+  const fillSelect = (elId, allLabel, items) => {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    const prev = el.value || "ALL";
+    el.innerHTML = `<option value="ALL">${allLabel}</option>` +
+      items.map(x => `<option value="${x}">${x}</option>`).join("");
+    if ([...el.options].some(o => o.value === prev)) el.value = prev;
+  };
+
+  fillSelect("kasFilterKategori", `Semua Pos Dana (${dList.length})`, dList);
+  fillSelect("santriPosFilter", `Semua Pos Dana (${dList.length})`, dList);
+  fillSelect("lapPosFilter", "Semua Pos Dana", dList);
+
+  fillSelect("kasFilterKelas", "Semua Kelas", kList);
+  fillSelect("santriKelasFilter", "Semua Kelas", kList);
+  fillSelect("analisaKelasFilter", `Semua Kelas (${appState.santri.length})`, kList);
+
+  const formPosEl = document.getElementById("kasPosDana");
+  if (formPosEl) {
+    const prevF = formPosEl.value;
+    formPosEl.innerHTML = dList.map(d => `<option value="${d}">${d}</option>`).join("");
+    if (prevF && dList.includes(prevF)) formPosEl.value = prevF;
+  }
+
+  filterKasSantriDropdown();
+}
+
+function renderDanaKategoriManage() {
+  const el = document.getElementById("danaKategoriList");
+  const q = getQuery("searchPosModal");
+  const list = (appState.danaKategori || [...defaultDanaKategori])
+    .filter(k => !q || k.toLowerCase().includes(q));
+
+  if (list.length === 0) {
+    el.innerHTML = `<div style="font-size:12px;color:var(--text-secondary);text-align:center;padding:16px 0;">Pos dana tidak ditemukan.</div>`;
+    return;
+  }
+
+  el.innerHTML = list.map(k => {
+    const isDefault = k === "Kas Umum Pengajian";
+    const txCount = appState.kasTransaksi.filter(t => t.kategori === k).length;
+    const safeName = k.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    return `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);gap:8px;">
+        <div>
+          <div style="font-size:13px;font-weight:700;">${k}</div>
+          <div style="font-size:11px;color:var(--text-secondary);">${txCount} catatan transaksi</div>
+        </div>
+        ${isDefault ? `<span class="badge">Utama</span>` : `<button type="button" class="btn btn-sm" onclick="deleteDanaKategori('${safeName}')">${txCount > 0 ? "Hapus & Pindah" : "Hapus"}</button>`}
+      </div>
+    `;
+  }).join("");
+}
+
+async function addDanaKategori() {
+  const input = document.getElementById("newDanaKategoriInput");
+  const nama = input.value.trim();
+  if (!nama) return showToast("Nama pos dana wajib diisi");
+  if (appState.danaKategori.some(k => k.toLowerCase() === nama.toLowerCase())) {
+    return showToast("Nama pos dana sudah ada");
+  }
+  appState.danaKategori.push(nama);
+  input.value = "";
+  renderDanaKategoriManage();
+  await persistState();
+  showToast(navigator.onLine ? "Pos dana ditambahkan & disinkronkan" : "Pos dana tersimpan di lokal");
+}
+
+async function deleteDanaKategori(nama) {
+  if (nama === "Kas Umum Pengajian") return;
+  let moved = 0;
+  appState.kasTransaksi.forEach(t => {
+    if (t.kategori === nama) {
+      t.kategori = "Kas Umum Pengajian";
+      moved++;
+    }
+  });
+  appState.danaKategori = appState.danaKategori.filter(k => k !== nama);
+  renderDanaKategoriManage();
+  await persistState();
+  showToast(moved > 0 ? `Pos dihapus • ${moved} transaksi dipindah ke Kas Umum` : "Pos dana dihapus");
+}
+
+function openKasForm(presetSantriId = null, presetPos = null) {
+  populateDropdowns();
+  const sInp = document.getElementById("searchSantriSelect");
+  const sWrap = document.getElementById("wrapSearchSantriSelect");
+  if (sInp) sInp.value = "";
+  if (sWrap) sWrap.classList.remove("has-text");
+  filterKasSantriDropdown(presetSantriId);
+
+  document.getElementById("kasModalTitle").textContent = "Catat Kas / Infaq Santri";
+  document.getElementById("editKasId").value = "";
+  document.getElementById("kasJenisTransaksi").value = "MASUK";
+  document.getElementById("kasTanggal").value = new Date().toISOString().slice(0, 10);
+
+  const activePos = presetPos || document.getElementById("kasFilterKategori").value;
+  if (activePos && activePos !== "ALL") {
+    document.getElementById("kasPosDana").value = activePos;
+  }
+
+  document.getElementById("kasSumberMode").value = appState.santri.length > 0 ? "SANTRI" : "UMUM";
+  if (presetSantriId) {
+    document.getElementById("kasSumberMode").value = "SANTRI";
+    document.getElementById("kasSantriId").value = presetSantriId;
+  }
+  document.getElementById("kasNamaManual").value = "";
+  document.getElementById("kasNominal").value = "";
+  document.getElementById("kasKeterangan").value = "";
+  toggleKasDonaturMode();
+  openModal("modalKasForm");
+}
+
+function editKasTransaksi(id) {
+  populateDropdowns();
+  const sInp = document.getElementById("searchSantriSelect");
+  const sWrap = document.getElementById("wrapSearchSantriSelect");
+  if (sInp) sInp.value = "";
+  if (sWrap) sWrap.classList.remove("has-text");
+
+  const tx = appState.kasTransaksi.find(x => x.id === id);
+  if (!tx) return;
+  filterKasSantriDropdown(tx.santriId || null);
+
+  document.getElementById("kasModalTitle").textContent = "Edit Catatan Kas";
+  document.getElementById("editKasId").value = tx.id;
+  document.getElementById("kasJenisTransaksi").value = tx.jenis;
+  document.getElementById("kasTanggal").value = tx.tanggal;
+  document.getElementById("kasPosDana").value = tx.kategori;
+  if (tx.santriId) {
+    document.getElementById("kasSumberMode").value = "SANTRI";
+    document.getElementById("kasSantriId").value = tx.santriId;
+  } else {
+    document.getElementById("kasSumberMode").value = "UMUM";
+    document.getElementById("kasNamaManual").value = tx.namaManual || "";
+  }
+  document.getElementById("kasNominal").value = tx.nominal;
+  document.getElementById("kasKeterangan").value = tx.keterangan || "";
+  toggleKasDonaturMode();
+  openModal("modalKasForm");
+}
+
+function toggleKasDonaturMode() {
+  const jenis = document.getElementById("kasJenisTransaksi").value;
+  const sumberWrap = document.getElementById("kasSumberModeWrap");
+  const santriWrap = document.getElementById("kasSantriSelectWrap");
+  const manualWrap = document.getElementById("kasNamaManualWrap");
+  const manualLbl = document.getElementById("kasNamaManualLabel");
+
+  if (jenis === "KELUAR") {
+    sumberWrap.style.display = "none";
+    santriWrap.style.display = "none";
+    manualWrap.style.display = "block";
+    manualLbl.textContent = "Keperluan / Penerima Pengeluaran";
+    document.getElementById("kasNamaManual").placeholder = "Contoh: Beli Lampu Balai / Konsumsi";
+  } else {
+    sumberWrap.style.display = "block";
+    manualLbl.textContent = "Nama Donatur / Sumber";
+    document.getElementById("kasNamaManual").placeholder = "Contoh: Hamba Allah / Wali Santri";
+    toggleKasSumberInput();
+  }
+}
+
+function toggleKasSumberInput() {
+  const mode = document.getElementById("kasSumberMode").value;
+  document.getElementById("kasSantriSelectWrap").style.display = mode === "SANTRI" ? "block" : "none";
+  document.getElementById("kasNamaManualWrap").style.display = mode === "UMUM" ? "block" : "none";
+}
+
+function setKasNominal(val) {
+  document.getElementById("kasNominal").value = val;
+}
+
+async function saveKasTransaksi() {
+  const id = document.getElementById("editKasId").value;
+  const jenis = document.getElementById("kasJenisTransaksi").value;
+  const tanggal = document.getElementById("kasTanggal").value || new Date().toISOString().slice(0, 10);
+  const kategori = document.getElementById("kasPosDana").value || "Kas Umum Pengajian";
+  const sumberMode = document.getElementById("kasSumberMode").value;
+  const santriId = (jenis === "MASUK" && sumberMode === "SANTRI") ? document.getElementById("kasSantriId").value : "";
+  const namaManual = document.getElementById("kasNamaManual").value.trim();
+  const nominal = Number(document.getElementById("kasNominal").value);
+  const keterangan = document.getElementById("kasKeterangan").value.trim();
+
+  if (!nominal || nominal <= 0) return showToast("Nominal dana harus lebih dari 0");
+  if (jenis === "MASUK" && sumberMode === "SANTRI" && !santriId) return showToast("Pilih santri terlebih dahulu");
+
+  const payload = {
+    id: id || ("k" + Date.now()),
+    jenis,
+    tanggal,
+    kategori,
+    santriId,
+    namaManual: santriId ? "" : (namaManual || (jenis === "KELUAR" ? "Pengeluaran Kas" : "Donatur Umum")),
+    nominal,
+    keterangan,
+    updatedAt: Date.now()
+  };
+
+  if (id) {
+    const idx = appState.kasTransaksi.findIndex(x => x.id === id);
+    if (idx > -1) appState.kasTransaksi[idx] = payload;
+  } else {
+    appState.kasTransaksi.unshift(payload);
+  }
+
+  closeModal("modalKasForm");
+  await persistState();
+  showToast(navigator.onLine ? "Catatan dana tersimpan & tersinkron" : "Tersimpan di lokal (otomatis sync saat online)");
+}
+
+async function deleteKasTransaksi(id) {
+  appState.kasTransaksi = appState.kasTransaksi.filter(x => x.id !== id);
+  await persistState();
+  showToast("Catatan dana dihapus");
+}
+
+function setKasTypeFilter(type, btnEl) {
+  kasTypeFilter = type;
+  document.querySelectorAll("#kasTypePills .pill").forEach(p => p.classList.remove("active"));
+  if (btnEl) btnEl.classList.add("active");
+  renderKas();
+}
+
+function selectKasPosChip(posName) {
+  const filterEl = document.getElementById("kasFilterKategori");
+  filterEl.value = filterEl.value === posName ? "ALL" : posName;
+  renderKas();
+}
+
+function renderKas() {
+  const dList = appState.danaKategori || [...defaultDanaKategori];
+  const filterPos = document.getElementById("kasFilterKategori")?.value || "ALL";
+  const filterKelas = document.getElementById("kasFilterKelas")?.value || "ALL";
+  const q = getQuery("searchKas");
+
+  const santriMap = {};
+  appState.santri.forEach(s => { santriMap[s.id] = s; });
+
+  let totalMasuk = 0;
+  let totalKeluar = 0;
+  const perPosSaldo = {};
+  dList.forEach(d => { perPosSaldo[d] = { masuk: 0, keluar: 0, saldo: 0 }; });
+
+  appState.kasTransaksi.forEach(t => {
+    const nom = Number(t.nominal) || 0;
+    if (!perPosSaldo[t.kategori]) perPosSaldo[t.kategori] = { masuk: 0, keluar: 0, saldo: 0 };
+    if (t.jenis === "KELUAR") {
+      totalKeluar += nom;
+      perPosSaldo[t.kategori].keluar += nom;
+      perPosSaldo[t.kategori].saldo -= nom;
+    } else {
+      totalMasuk += nom;
+      perPosSaldo[t.kategori].masuk += nom;
+      perPosSaldo[t.kategori].saldo += nom;
+    }
+  });
+
+  const saldoAkhir = totalMasuk - totalKeluar;
+
+  document.getElementById("kasSummaryStats").innerHTML = `
+    <div class="stat-box" style="padding:10px 6px;">
+      <div class="stat-val" style="font-size:15px;">${formatRupiahShort(saldoAkhir)}</div>
+      <div class="stat-lbl">Saldo Terkumpul</div>
+    </div>
+    <div class="stat-box" style="padding:10px 6px;">
+      <div class="stat-val" style="font-size:15px;">${formatRupiahShort(totalMasuk)}</div>
+      <div class="stat-lbl">Total Masuk</div>
+    </div>
+    <div class="stat-box" style="padding:10px 6px;">
+      <div class="stat-val" style="font-size:15px;">${formatRupiahShort(totalKeluar)}</div>
+      <div class="stat-lbl">Total Keluar</div>
+    </div>
+  `;
+
+  document.getElementById("kasPosCountBadge").textContent = `${dList.length} Pos Dana`;
+
+  document.getElementById("kasPosGrid").innerHTML = dList.map(pos => {
+    const info = perPosSaldo[pos] || { saldo: 0 };
+    const isActive = filterPos === pos;
+    const safePos = pos.replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+    return `
+      <div class="dana-chip ${isActive ? "active" : ""}" onclick="selectKasPosChip('${safePos}')">
+        <div style="font-size:11px;color:var(--text-secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${pos}</div>
+        <div style="font-size:14px;font-weight:800;margin-top:2px;">${formatRupiah(info.saldo)}</div>
+      </div>
+    `;
+  }).join("");
+
+  const container = document.getElementById("kasListContainer");
+  const metaEl = document.getElementById("kasListMeta");
+
+  if (kasTypeFilter === "BELUM_SETOR") {
+    const paidSantriIds = new Set();
+    appState.kasTransaksi.forEach(t => {
+      if (t.jenis === "MASUK" && t.santriId) {
+        if (filterPos === "ALL" || t.kategori === filterPos) {
+          paidSantriIds.add(t.santriId);
+        }
+      }
+    });
+
+    let belumList = appState.santri.filter(s => {
+      const matchKelas = filterKelas === "ALL" || s.kelas === filterKelas;
+      const matchSearch = !q || (s.nama || "").toLowerCase().includes(q) || (s.kelas || "").toLowerCase().includes(q);
+      return matchKelas && matchSearch && !paidSantriIds.has(s.id);
+    });
+
+    metaEl.innerHTML = `<span>Menampilkan <strong>${belumList.length}</strong> santri belum setor</span><span>${filterPos === "ALL" ? "Semua Pos" : filterPos}</span>`;
+
+    if (belumList.length === 0) {
+      container.innerHTML = `<div class="neu-card" style="text-align:center;color:var(--text-secondary);font-size:13px;">Semua santri pada filter ini sudah memiliki catatan setoran.</div>`;
+      return;
+    }
+
+    container.innerHTML = belumList.map(s => `
+      <div class="neu-card" style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;margin-bottom:8px;">
+        <div onclick="openSantriKasDetail('${s.id}')" style="cursor:pointer;">
+          <div style="font-weight:700;font-size:14px;">${s.nama}</div>
+          <div style="font-size:11px;color:var(--text-secondary);">Kelas: ${s.kelas}</div>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" onclick="openKasForm('${s.id}', '${filterPos !== "ALL" ? filterPos.replace(/'/g, "\\'") : ""}')">+ Setor Cepat</button>
+      </div>
+    `).join("");
+    return;
+  }
+
+  let filteredTx = appState.kasTransaksi.filter(t => {
+    if (filterPos !== "ALL" && t.kategori !== filterPos) return false;
+    if (kasTypeFilter === "MASUK" && t.jenis !== "MASUK") return false;
+    if (kasTypeFilter === "KELUAR" && t.jenis !== "KELUAR") return false;
+
+    const sObj = t.santriId ? santriMap[t.santriId] : null;
+    if (filterKelas !== "ALL") {
+      if (!sObj || sObj.kelas !== filterKelas) return false;
+    }
+
+    if (q) {
+      const displayName = sObj ? sObj.nama : (t.namaManual || "");
+      const matchName = displayName.toLowerCase().includes(q);
+      const matchKet = (t.keterangan || "").toLowerCase().includes(q);
+      const matchKat = (t.kategori || "").toLowerCase().includes(q);
+      const matchTgl = (t.tanggal || "").toLowerCase().includes(q);
+      if (!matchName && !matchKet && !matchKat && !matchTgl) return false;
+    }
+    return true;
+  });
+
+  metaEl.innerHTML = `<span>Menampilkan <strong>${filteredTx.length}</strong> dari ${appState.kasTransaksi.length} catatan</span><span>${q ? 'Kata kunci: "' + q + '"' : ""}</span>`;
+
+  if (filteredTx.length === 0) {
+    container.innerHTML = `<div class="neu-card" style="text-align:center;color:var(--text-secondary);font-size:13px;">Belum ada catatan dana yang sesuai pencarian atau filter.</div>`;
+    return;
+  }
+
+  container.innerHTML = filteredTx.map(t => {
+    const sObj = t.santriId ? santriMap[t.santriId] : null;
+    const namaTampil = sObj ? sObj.nama : (t.namaManual || "Umum");
+    const subInfo = sObj ? `Santri • ${sObj.kelas}` : (t.jenis === "KELUAR" ? "Pengeluaran Kas" : "Donatur / Umum");
+    const isKeluar = t.jenis === "KELUAR";
+
+    return `
+      <div class="neu-card" style="padding:13px 14px;margin-bottom:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+          <div style="min-width:0;flex:1;">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;">
+              <span class="badge">${t.kategori}</span>
+              <span style="font-size:11px;color:var(--text-secondary);">${t.tanggal}</span>
+            </div>
+            <div style="font-weight:700;font-size:14px;${sObj ? "cursor:pointer;" : ""}" ${sObj ? `onclick="openSantriKasDetail('${sObj.id}')"` : ""}>
+              ${namaTampil}
+            </div>
+            <div style="font-size:11px;color:var(--text-secondary);">${subInfo}${t.keterangan ? " • " + t.keterangan : ""}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div style="font-weight:800;font-size:14px;margin-bottom:6px;">
+              ${isKeluar ? "- " : "+ "}${formatRupiah(t.nominal)}
+            </div>
+            <div style="display:flex;gap:5px;justify-content:flex-end;">
+              <button type="button" class="btn btn-sm" style="padding:4px 8px;font-size:11px;" onclick="editKasTransaksi('${t.id}')">Edit</button>
+              <button type="button" class="btn btn-sm" style="padding:4px 8px;font-size:11px;" onclick="deleteKasTransaksi('${t.id}')">Hapus</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function setSantriSetorFilter(status, btnEl) {
+  santriSetorFilter = status;
+  document.querySelectorAll("#santriStatusSetorPills .pill").forEach(p => p.classList.remove("active"));
+  if (btnEl) btnEl.classList.add("active");
+  renderSantriKas();
+}
+
+function renderSantriKas() {
+  const posFilter = document.getElementById("santriPosFilter")?.value || "ALL";
+  const kelasFilter = document.getElementById("santriKelasFilter")?.value || "ALL";
+  const q = getQuery("searchSantriKas");
+
+  const targetSantri = appState.santri.filter(s => {
+    if (kelasFilter !== "ALL" && s.kelas !== kelasFilter) return false;
+    if (q && !(s.nama || "").toLowerCase().includes(q) && !(s.kelas || "").toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  let sudahCount = 0;
+  let belumCount = 0;
+
+  const enriched = targetSantri.map(s => {
+    const txs = appState.kasTransaksi.filter(t =>
+      t.jenis === "MASUK" &&
+      t.santriId === s.id &&
+      (posFilter === "ALL" || t.kategori === posFilter)
+    );
+    const total = txs.reduce((acc, c) => acc + (Number(c.nominal) || 0), 0);
+    if (txs.length > 0) sudahCount++;
+    else belumCount++;
+    return { ...s, total, count: txs.length };
+  });
+
+  document.getElementById("santriKasStats").innerHTML = `
+    <div class="stat-box" style="padding:10px 6px;">
+      <div class="stat-val" style="font-size:16px;">${targetSantri.length}</div>
+      <div class="stat-lbl">Total Santri</div>
+    </div>
+    <div class="stat-box" style="padding:10px 6px;">
+      <div class="stat-val" style="font-size:16px;">${sudahCount}</div>
+      <div class="stat-lbl">Sudah Setor</div>
+    </div>
+    <div class="stat-box" style="padding:10px 6px;">
+      <div class="stat-val" style="font-size:16px;">${belumCount}</div>
+      <div class="stat-lbl">Belum Setor</div>
+    </div>
+  `;
+
+  let listToShow = enriched;
+  if (santriSetorFilter === "SUDAH") listToShow = enriched.filter(x => x.count > 0);
+  if (santriSetorFilter === "BELUM") listToShow = enriched.filter(x => x.count === 0);
+
+  listToShow.sort((a, b) => (a.nama || "").localeCompare(b.nama || ""));
+
+  const metaEl = document.getElementById("santriListMeta");
+  metaEl.innerHTML = `<span>Menampilkan <strong>${listToShow.length}</strong> santri</span><span>${posFilter === "ALL" ? "Semua Pos" : posFilter}</span>`;
+
+  const listEl = document.getElementById("santriKasList");
+  if (listToShow.length === 0) {
+    listEl.innerHTML = `<div class="neu-card" style="text-align:center;color:var(--text-secondary);font-size:13px;">Tidak ada santri yang sesuai pencarian atau filter.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = listToShow.map(s => `
+    <div class="neu-card" style="display:flex;justify-content:space-between;align-items:center;padding:12px 14px;margin-bottom:8px;gap:8px;">
+      <div style="cursor:pointer;flex:1;min-width:0;" onclick="openSantriKasDetail('${s.id}')">
+        <div style="font-weight:700;font-size:14px;">${s.nama}</div>
+        <div style="font-size:11px;color:var(--text-secondary);">${s.kelas} • ${s.count > 0 ? s.count + "x setoran" : "Belum ada setoran"}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+        <span class="badge" style="${s.total > 0 ? "background:var(--accent);color:var(--accent-text);" : ""}">${formatRupiah(s.total)}</span>
+        <button type="button" class="btn btn-sm" onclick="openKasForm('${s.id}', '${posFilter !== "ALL" ? posFilter.replace(/'/g, "\\'") : ""}')">+ Setor</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderCurrentSantriKasHistory() {
+  if (!activeDetailSantriId) return;
+  const s = appState.santri.find(x => x.id === activeDetailSantriId);
+  if (!s) return;
+
+  const q = getQuery("searchDetKas");
+  const allTxs = appState.kasTransaksi.filter(t => t.santriId === s.id && t.jenis === "MASUK");
+  const total = allTxs.reduce((acc, c) => acc + (Number(c.nominal) || 0), 0);
+
+  document.getElementById("detKasKelas").textContent = s.kelas;
+  document.getElementById("detKasNama").textContent = s.nama;
+  document.getElementById("detKasTotalLabel").textContent = `Total Setoran Terkumpul: ${formatRupiah(total)}`;
+
+  const txs = q
+    ? allTxs.filter(t =>
+        (t.kategori || "").toLowerCase().includes(q) ||
+        (t.tanggal || "").toLowerCase().includes(q) ||
+        (t.keterangan || "").toLowerCase().includes(q)
+      )
+    : allTxs;
+
+  const histEl = document.getElementById("detKasHistoryList");
+  if (txs.length === 0) {
+    histEl.innerHTML = `<div style="font-size:12px;color:var(--text-secondary);text-align:center;padding:16px 0;">${allTxs.length === 0 ? "Belum ada catatan setoran dari santri ini." : "Catatan setoran tidak ditemukan."}</div>`;
+  } else {
+    histEl.innerHTML = txs.map(t => `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px;">
+        <div>
+          <div style="font-weight:700;">${t.kategori}</div>
+          <div style="font-size:11px;color:var(--text-secondary);">${t.tanggal}${t.keterangan ? " • " + t.keterangan : ""}</div>
+        </div>
+        <div style="font-weight:800;">${formatRupiah(t.nominal)}</div>
+      </div>
+    `).join("");
+  }
+}
+
+function openSantriKasDetail(santriId) {
+  activeDetailSantriId = santriId;
+  const inp = document.getElementById("searchDetKas");
+  const wrap = document.getElementById("wrapSearchDetKas");
+  if (inp) inp.value = "";
+  if (wrap) wrap.classList.remove("has-text");
+
+  renderCurrentSantriKasHistory();
+
+  document.getElementById("btnDetCatatSetoran").onclick = () => {
+    closeModal("modalSantriKasDetail");
+    openKasForm(santriId);
+  };
+
+  openModal("modalSantriKasDetail");
+}
+
+function getWeekBounds(dateStr) {
+  const parts = dateStr.split("-").map(Number);
+  const d = new Date(parts[0], parts[1] - 1, parts[2]);
+  const day = d.getDay();
+  const diffToMon = (day === 0 ? -6 : 1 - day);
+  const mon = new Date(d);
+  mon.setDate(d.getDate() + diffToMon);
+  const sun = new Date(mon);
+  sun.setDate(mon.getDate() + 6);
+  const fmt = (dt) => `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
+  return { start: fmt(mon), end: fmt(sun), startObj: mon };
+}
+
+function setAnalisaMode(mode, btnEl) {
+  analisaMode = mode;
+  document.querySelectorAll("#analisaPeriodPills .pill").forEach(p => p.classList.remove("active"));
+  if (btnEl) btnEl.classList.add("active");
+
+  const dateWrap = document.getElementById("analisaDateWrap");
+  const monthWrap = document.getElementById("analisaMonthWrap");
+  const dateLbl = document.getElementById("analisaDateLabel");
+
+  if (mode === "harian") {
+    dateWrap.style.display = "block";
+    monthWrap.style.display = "none";
+    dateLbl.textContent = "Pilih Tanggal Harian";
+  } else if (mode === "mingguan") {
+    dateWrap.style.display = "block";
+    monthWrap.style.display = "none";
+    dateLbl.textContent = "Pilih Salah Satu Tanggal di Minggu Tersebut";
+  } else if (mode === "bulanan") {
+    dateWrap.style.display = "none";
+    monthWrap.style.display = "block";
+  } else {
+    dateWrap.style.display = "none";
+    monthWrap.style.display = "none";
+  }
+  renderAnalisaKas();
+}
+
+function renderVerticalBarChart(items, emptyMsg) {
+  if (!items || items.length === 0) {
+    return `<div style="font-size:12px;color:var(--text-secondary);text-align:center;padding:24px 0;">${emptyMsg}</div>`;
+  }
+  return `
+    <div class="vchart-wrap">
+      ${items.map(it => `
+        <div class="vchart-col" title="${it.fullLabel}: ${it.topText} (${it.detail})">
+          <div class="vchart-val">${it.topText}</div>
+          <div class="vchart-bar-bg">
+            <div class="vchart-bar-fill" style="height:${Math.max(it.pct, it.pct > 0 ? 6 : 0)}%;"></div>
+          </div>
+          <div class="vchart-lbl">${it.label}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderAnalisaKas() {
+  const refDate = document.getElementById("analisaRefDate").value || new Date().toISOString().slice(0, 10);
+  const refMonth = document.getElementById("analisaRefMonth").value || refDate.slice(0, 7);
+  const kelasFilter = document.getElementById("analisaKelasFilter")?.value || "ALL";
+  const wb = analisaMode === "mingguan" ? getWeekBounds(refDate) : null;
+
+  const targetSantri = kelasFilter === "ALL"
+    ? appState.santri
+    : appState.santri.filter(s => s.kelas === kelasFilter);
+  const targetIds = new Set(targetSantri.map(s => s.id));
+
+  const kasTxList = appState.kasTransaksi.filter(t => {
+    const tgl = t.tanggal || "";
+    if (analisaMode === "harian" && tgl !== refDate) return false;
+    if (analisaMode === "mingguan" && (tgl < wb.start || tgl > wb.end)) return false;
+    if (analisaMode === "bulanan" && !tgl.startsWith(refMonth + "-")) return false;
+    if (kelasFilter !== "ALL") {
+      if (!t.santriId || !targetIds.has(t.santriId)) return false;
+    }
+    return true;
+  });
+
+  const dList = appState.danaKategori || [...defaultDanaKategori];
+  let kasMasuk = 0;
+  let kasKeluar = 0;
+  const posMasukMap = {};
+  dList.forEach(d => { posMasukMap[d] = 0; });
+  const santriContribMap = {};
+
+  kasTxList.forEach(t => {
+    const nom = Number(t.nominal) || 0;
+    if (t.jenis === "KELUAR") {
+      kasKeluar += nom;
+    } else {
+      kasMasuk += nom;
+      posMasukMap[t.kategori] = (posMasukMap[t.kategori] || 0) + nom;
+      if (t.santriId) {
+        if (!santriContribMap[t.santriId]) santriContribMap[t.santriId] = { total: 0, count: 0 };
+        santriContribMap[t.santriId].total += nom;
+        santriContribMap[t.santriId].count += 1;
+      }
+    }
+  });
+
+  const kasBersih = kasMasuk - kasKeluar;
+  document.getElementById("analisaKasBadge").textContent = `${kasTxList.length} Transaksi`;
+
+  document.getElementById("analisaKasSummary").innerHTML = `
+    <div class="stat-box" style="padding:10px 6px;">
+      <div class="stat-val" style="font-size:15px;">${formatRupiahShort(kasBersih)}</div>
+      <div class="stat-lbl">Saldo Periode</div>
+    </div>
+    <div class="stat-box" style="padding:10px 6px;">
+      <div class="stat-val" style="font-size:15px;">${formatRupiahShort(kasMasuk)}</div>
+      <div class="stat-lbl">Kas Masuk</div>
+    </div>
+    <div class="stat-box" style="padding:10px 6px;">
+      <div class="stat-val" style="font-size:15px;">${formatRupiahShort(kasKeluar)}</div>
+      <div class="stat-lbl">Kas Keluar</div>
+    </div>
+  `;
+
+  let kasChartItems = [];
+  const masukTxList = kasTxList.filter(t => t.jenis === "MASUK");
+
+  if (analisaMode === "harian") {
+    document.getElementById("kasTrendChartTitle").textContent = `Pemasukan Harian (${refDate})`;
+    const byPos = {};
+    masukTxList.forEach(t => { byPos[t.kategori] = (byPos[t.kategori] || 0) + (Number(t.nominal) || 0); });
+    const maxVal = Math.max(...Object.values(byPos), 1);
+    kasChartItems = Object.keys(byPos).map(pos => ({
+      label: pos.split(" ")[0],
+      fullLabel: pos,
+      pct: Math.round((byPos[pos] / maxVal) * 100),
+      topText: formatRupiahShort(byPos[pos]),
+      detail: formatRupiah(byPos[pos])
+    }));
+  } else if (analisaMode === "mingguan") {
+    document.getElementById("kasTrendChartTitle").textContent = "Grafik Pemasukan Mingguan";
+    const hariNama = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
+    const dayTotals = [];
+    for (let idx = 0; idx < 7; idx++) {
+      const cur = new Date(wb.startObj);
+      cur.setDate(wb.startObj.getDate() + idx);
+      const dStr = `${cur.getFullYear()}-${String(cur.getMonth() + 1).padStart(2, "0")}-${String(cur.getDate()).padStart(2, "0")}`;
+      const sum = masukTxList.filter(t => t.tanggal === dStr).reduce((acc, c) => acc + (Number(c.nominal) || 0), 0);
+      dayTotals.push({ label: `${hariNama[idx]} ${dStr.slice(8, 10)}`, fullLabel: `${hariNama[idx]}, ${dStr}`, sum });
+    }
+    const maxVal = Math.max(...dayTotals.map(x => x.sum), 1);
+    kasChartItems = dayTotals.map(d => ({
+      label: d.label,
+      fullLabel: d.fullLabel,
+      pct: d.sum > 0 ? Math.round((d.sum / maxVal) * 100) : 0,
+      topText: d.sum > 0 ? formatRupiahShort(d.sum) : "0",
+      detail: formatRupiah(d.sum)
+    }));
+  } else {
+    document.getElementById("kasTrendChartTitle").textContent = analisaMode === "bulanan"
+      ? `Grafik Pemasukan Bulanan (${refMonth})`
+      : "Grafik Pemasukan Per Tanggal";
+    const byDate = {};
+    masukTxList.forEach(t => {
+      const tgl = t.tanggal || "Tanpa Tgl";
+      byDate[tgl] = (byDate[tgl] || 0) + (Number(t.nominal) || 0);
+    });
+    const sortedDates = Object.keys(byDate).sort();
+    const maxVal = Math.max(...Object.values(byDate), 1);
+    kasChartItems = sortedDates.map(tgl => ({
+      label: tgl.slice(5),
+      fullLabel: tgl,
+      pct: Math.round((byDate[tgl] / maxVal) * 100),
+      topText: formatRupiahShort(byDate[tgl]),
+      detail: formatRupiah(byDate[tgl])
+    }));
+  }
+
+  document.getElementById("kasTrendChartBox").innerHTML = renderVerticalBarChart(
+    kasChartItems,
+    "Belum ada pemasukan kas pada periode ini."
+  );
+
+  document.getElementById("kasPosDistTotalBadge").textContent = formatRupiah(kasMasuk);
+  const posDistEl = document.getElementById("kasPosDistChart");
+  if (kasMasuk <= 0) {
+    posDistEl.innerHTML = `<div style="font-size:12px;color:var(--text-secondary);">Belum ada pemasukan dana pada filter ini.</div>`;
+  } else {
+    const posEntries = Object.entries(posMasukMap).filter(([, val]) => val > 0).sort((a, b) => b[1] - a[1]);
+    posDistEl.innerHTML = posEntries.map(([posName, val], idx) => {
+      const pct = Math.round((val / kasMasuk) * 100);
+      const opacity = Math.max(1 - idx * 0.16, 0.35);
+      return `
+        <div class="dist-row">
+          <div class="dist-meta">
+            <span>${posName}</span>
+            <span>${formatRupiah(val)} (${pct}%)</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:${pct}%;opacity:${opacity};"></div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  const santriMap = {};
+  appState.santri.forEach(s => { santriMap[s.id] = s; });
+
+  const qContrib = getQuery("searchAnalisaContrib");
+  const allContributors = Object.entries(santriContribMap)
+    .map(([sid, info]) => ({ santri: santriMap[sid], total: info.total, count: info.count }))
+    .filter(item => item.santri)
+    .sort((a, b) => b.total - a.total)
+    .map((item, index) => ({ ...item, rank: index + 1 }));
+
+  const filteredContributors = qContrib
+    ? allContributors.filter(c =>
+        (c.santri.nama || "").toLowerCase().includes(qContrib) ||
+        (c.santri.kelas || "").toLowerCase().includes(qContrib)
+      )
+    : allContributors;
+
+  document.getElementById("kasContributorCountBadge").textContent = `${allContributors.length} Santri`;
+  const contribEl = document.getElementById("kasTopContributorsList");
+
+  if (filteredContributors.length === 0) {
+    contribEl.innerHTML = `<div style="font-size:12px;color:var(--text-secondary);text-align:center;padding:8px 0;">${allContributors.length === 0 ? "Belum ada catatan setoran kas dari santri pada periode ini." : "Nama santri tidak ditemukan di peringkat."}</div>`;
+  } else {
+    contribEl.innerHTML = filteredContributors.map(c => `
+      <div class="clickable-row" style="display:flex;justify-content:space-between;align-items:center;" onclick="openSantriKasDetail('${c.santri.id}')">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="badge" style="${c.rank <= 3 ? "background:var(--accent);color:var(--accent-text);" : ""}">#${c.rank}</span>
+          <div>
+            <div style="font-size:13px;font-weight:700;">${c.santri.nama}</div>
+            <div style="font-size:11px;color:var(--text-secondary);">${c.santri.kelas} • ${c.count}x setoran</div>
+          </div>
+        </div>
+        <div style="font-weight:800;font-size:13px;">${formatRupiah(c.total)}</div>
+      </div>
+    `).join("");
+  }
+}
+
+function renderLaporan() {
+  const posFilter = document.getElementById("lapPosFilter")?.value || "ALL";
+  const monthFilter = document.getElementById("lapMonthFilter")?.value || "";
+  const qLap = getQuery("searchLaporan");
+
+  const santriMap = {};
+  appState.santri.forEach(s => { santriMap[s.id] = s; });
+
+  const txs = appState.kasTransaksi.filter(t => {
+    if (posFilter !== "ALL" && t.kategori !== posFilter) return false;
+    if (monthFilter && !(t.tanggal || "").startsWith(monthFilter + "-")) return false;
+    if (qLap) {
+      const sObj = t.santriId ? santriMap[t.santriId] : null;
+      const nama = sObj ? sObj.nama : (t.namaManual || "Umum");
+      const match = nama.toLowerCase().includes(qLap) ||
+        (t.kategori || "").toLowerCase().includes(qLap) ||
+        (t.keterangan || "").toLowerCase().includes(qLap) ||
+        (t.tanggal || "").toLowerCase().includes(qLap);
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  let masuk = 0, keluar = 0;
+  txs.forEach(t => {
+    if (t.jenis === "KELUAR") keluar += Number(t.nominal) || 0;
+    else masuk += Number(t.nominal) || 0;
+  });
+
+  const lines = [
+    "LAPORAN KAS & INFAQ SANTRI",
+    "DAYAH / BALAI PENGAJIAN BUSTANUL HADI",
+    "----------------------------------------",
+    `Pos Dana : ${posFilter === "ALL" ? "Semua Pos Dana" : posFilter}`,
+    `Periode  : ${monthFilter || "Semua Waktu"}`,
+    ...(qLap ? [`Saringan : "${qLap}"`] : []),
+    `Cetak    : ${new Date().toLocaleDateString("id-ID")}`,
+    "----------------------------------------",
+    `Total Dana Masuk   : ${formatRupiah(masuk)}`,
+    `Total Pengeluaran  : ${formatRupiah(keluar)}`,
+    `Saldo Akhir        : ${formatRupiah(masuk - keluar)}`,
+    "----------------------------------------",
+    "RINCIAN TRANSAKSI:"
+  ];
+
+  if (txs.length === 0) {
+    lines.push("(Belum ada transaksi pada filter ini)");
+  } else {
+    txs.forEach((t, i) => {
+      const sObj = t.santriId ? santriMap[t.santriId] : null;
+      const nama = sObj ? sObj.nama : (t.namaManual || "Umum");
+      const tanda = t.jenis === "KELUAR" ? "-" : "+";
+      const ket = t.keterangan ? ` [${t.keterangan}]` : "";
+      lines.push(`${i + 1}. ${t.tanggal} | ${tanda}${formatRupiah(t.nominal)} | ${nama} (${t.kategori})${ket}`);
+    });
+  }
+
+  document.getElementById("laporanPreviewBox").textContent = lines.join("\n");
+}
+
+async function copyLaporanTeks() {
+  const txt = document.getElementById("laporanPreviewBox").textContent;
+  try {
+    await navigator.clipboard.writeText(txt);
+    showToast("Laporan kas disalin ke clipboard");
+  } catch (e) {
+    showToast("Gagal menyalin otomatis, silakan salin manual dari kotak laporan");
+  }
+}
+
+function exportJsonBackup() {
+  const dataStr = JSON.stringify(appState, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const tgl = new Date().toISOString().slice(0, 10);
+  a.href = url;
+  a.download = `backup_kas_bustanul_hadi_${tgl}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast("File backup JSON berhasil diunduh");
+}
+
+async function copyJsonBackup() {
+  const dataStr = JSON.stringify(appState, null, 2);
+  try {
+    await navigator.clipboard.writeText(dataStr);
+    showToast("Backup JSON disalin ke clipboard");
+  } catch (e) {
+    showToast("Gagal menyalin JSON");
+  }
+}
+
+function importJsonFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if (!parsed || typeof parsed !== "object") return showToast("Format JSON tidak valid");
+      appState = sanitizeState({ ...defaultState, ...appState, ...parsed });
+      await persistState();
+      event.target.value = "";
+      showToast("Data berhasil dipulihkan dari JSON");
+    } catch (err) {
+      showToast("Gagal membaca file JSON");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function renderAll() {
+  populateDropdowns();
+  renderKas();
+  renderSantriKas();
+  renderAnalisaKas();
+  renderLaporan();
+}
+
+const todayIso = new Date().toISOString().slice(0, 10);
+document.getElementById("analisaRefDate").value = todayIso;
+document.getElementById("analisaRefMonth").value = todayIso.slice(0, 7);
+
+if (localStorage.getItem("bendahara_permanent_unlocked") === "1") {
+  document.getElementById("lockScreen").classList.add("hidden");
+}
+renderAll();
+updateSyncUI(hasPendingSync ? "pending" : (navigator.onLine ? "online" : "offline"));
+initFirebase(true);
+
+(function setupBendaharaIconAndPWA() {
+  function syncThemeColorMeta() {
+    const darkNow = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const color = darkNow ? "#171717" : "#f7f7f7";
+    let meta = document.querySelector('meta[name="theme-color"]:not([media])');
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "theme-color";
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", color);
+  }
+  syncThemeColorMeta();
+  if (window.matchMedia) {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", syncThemeColorMeta);
+  }
+
+  const logoSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <rect width="512" height="512" rx="112" fill="#141414"/>
+    <rect x="96" y="136" width="320" height="240" rx="36" fill="none" stroke="#ffffff" stroke-width="28"/>
+    <line x1="96" y1="212" x2="416" y2="212" stroke="#ffffff" stroke-width="28"/>
+    <circle cx="348" cy="292" r="22" fill="#ffffff"/>
+  </svg>`;
+
+  const svgUrl = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(logoSvg);
+  const favEl = document.getElementById("appFavicon");
+  if (favEl) favEl.href = svgUrl;
+
+  const img = new Image();
+  img.onload = function () {
+    const canvas = document.createElement("canvas");
+    canvas.width = 512;
+    canvas.height = 512;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, 512, 512);
+    const pngDataUrl = canvas.toDataURL("image/png");
+
+    const appleEl = document.getElementById("appAppleIcon");
+    if (appleEl) appleEl.href = pngDataUrl;
+
+    const isDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const manifestObj = {
+      name: "BUSTANUL HADI - Portal Bendahara",
+      short_name: "Bendahara BH",
+      start_url: window.location.href,
+      display: "standalone",
+      background_color: isDark ? "#121212" : "#f0f0f0",
+      theme_color: isDark ? "#171717" : "#f7f7f7",
+      icons: [
+        { src: pngDataUrl, sizes: "192x192", type: "image/png", purpose: "any maskable" },
+        { src: pngDataUrl, sizes: "512x512", type: "image/png", purpose: "any maskable" }
+      ]
+    };
+
+    const manifestBlob = new Blob([JSON.stringify(manifestObj)], { type: "application/manifest+json" });
+    const manifestEl = document.getElementById("appManifest");
+    if (manifestEl) manifestEl.href = URL.createObjectURL(manifestBlob);
+  };
+  img.src = svgUrl;
+})();
+</script>
+</body>
+</html>
